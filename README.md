@@ -1,4 +1,4 @@
-p>
+
 						O projeto "Challenge" é uma iniciativa da FIAP, realizada em parceria com a EUROFARMA.
 						Com o foco em Onboarding, criamos este site para fornecer guias informativos sobre tudo que o
 						envolve.
