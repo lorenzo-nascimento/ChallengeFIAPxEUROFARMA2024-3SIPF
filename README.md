@@ -4,7 +4,7 @@
 						envolve.
 					
 						Utilizamos HTML5 para estruturar o conteúdo e CSS3 para estilizar a página, garantindo um visual
-						bonito e agradável. Além disso, empregamos JavaScript para desenvolver um quiz envolvente e um
+						bonito e agradável. Além disso, empregamos JavaScript puro para desenvolver um quiz envolvente e um
 						botão que facilita o retorno ao início da página.
 					
 						Esperamos que este projeto contribua para o aprendizado e espalhe conhecimento de forma eficaz.
