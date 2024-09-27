@@ -1,0 +1,32 @@
+{
+    "name": "haniel",
+    "companyId": "12344",
+    "answers": [
+        {
+            "pergunta": "Qual é o objetivo principal do processo de onboarding na Eurofarma?",
+            "resposta": "Ensinar sobre os produtos da empresa"
+        },
+        {
+            "pergunta": "O que é o EurON na Eurofarma?",
+            "resposta": "Um sistema de gestão de RH"
+        },
+        {
+            "pergunta": "Quanto tempo, em média, dura o processo de onboarding na Eurofarma?",
+            "resposta": "6 meses"
+        },
+        {
+            "pergunta": "Qual é uma das principais vantagens do EurON para novos colaboradores?",
+            "resposta": "Descontos em produtos Eurofarma"
+        },
+        {
+            "pergunta": "Como o onboarding influencia a retenção de novos colaboradores?",
+            "resposta": "Reduzindo o tempo de adaptação"
+        }
+    ],
+    "score": 0,
+    "totalQuestions": 5,
+    "date": {
+        "$$date": 1727397052590
+    },
+    "_id": "OwfIg3YknyVKVl0p"
+}{"$$deleted":true,"_id":"OwfIg3YknyVKVl0p"}

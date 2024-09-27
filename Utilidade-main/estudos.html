@@ -56,6 +56,39 @@
 		.hidden {
 			display: none;
 		}
+
+		.error-message {
+			color: red;
+			display: none;
+			margin-top: 10px;
+		}
+
+		.register-container {
+			max-width: 400px;
+			margin: 50px auto;
+			padding: 20px;
+			background-color: #fff;
+			border-radius: 8px;
+			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+		}
+
+		.register-container h2 {
+			margin-bottom: 20px;
+			/* Adiciona espaço abaixo do título */
+		}
+
+		.register-container input {
+			width: calc(100% - 22px);
+			padding: 10px;
+			margin-bottom: 10px;
+			border-radius: 5px;
+			border: 1px solid #ddd;
+		}
+
+		.register-container button {
+			width: 100%;
+			padding: 10px;
+		}
 	</style>
 </head>
 
@@ -81,7 +114,19 @@
 		</header>
 
 		<main>
-			<section id="quiz">
+			<!-- Formulário de Cadastro -->
+			<section id="register">
+				<div class="register-container">
+					<h2>Cadastro</h2>
+					<input type="text" id="name" placeholder="Digite seu nome" required />
+					<input type="text" id="company-id" placeholder="Digite seu ID de empresa" required />
+					<button id="register-btn">Cadastrar e Iniciar Quiz</button>
+					<p class="error-message hidden">Por favor, preencha todos os campos.</p>
+				</div>
+			</section>
+
+			<!-- Quiz -->
+			<section id="quiz" class="hidden">
 				<div class="quiz-container">
 					<h2>Teste seu conhecimento sobre o Onboarding na Eurofarma!</h2>
 					<button id="start-btn">Começar</button>
@@ -103,7 +148,16 @@
 		<path stroke-linecap="round" stroke-linejoin="round" d="M5 11l7-7 7 7M5 19l7-7 7 7" />
 	</svg>
 
+	<script src="/assets/script/login.js"></script>
 	<script src="/assets/script/jogo.js"></script>
+
+
+	<div id="thank-you-container" class="hidden">
+		<h2>Obrigado por jogar!</h2>
+		<p id="result-text"></p>
+		<button id="back-to-register-btn">Voltar ao Cadastro</button>
+	</div>
+
 </body>
 
 </html>

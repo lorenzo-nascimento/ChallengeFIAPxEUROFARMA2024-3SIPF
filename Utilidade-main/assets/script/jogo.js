@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let currentQuestionIndex = 0;
     let score = 0;
+    let answers = [];
+    let totalTime = 120; // 2 minutes in seconds
     let timerInterval;
 
     function startQuiz() {
@@ -16,8 +18,12 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('timer').classList.remove('hidden');
         document.getElementById('question-container').classList.remove('hidden');
         document.getElementById('submit-btn').classList.remove('hidden');
-        document.getElementById('question-container').innerHTML = generateQuestionHTML(questions[currentQuestionIndex]);
-        startTimer(120); // 2 minutes in seconds
+        showQuestion(questions[currentQuestionIndex]);
+        startTimer(totalTime); // Start the timer
+    }
+
+    function showQuestion(question) {
+        document.getElementById('question-container').innerHTML = generateQuestionHTML(question);
     }
 
     function generateQuestionHTML(question) {
@@ -31,25 +37,66 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function submitQuiz() {
-        clearInterval(timerInterval);
         const selectedAnswer = document.querySelector('input[name="answer"]:checked');
-        if (selectedAnswer && selectedAnswer.value === questions[currentQuestionIndex].correctAnswer) {
-            score++;
+        if (selectedAnswer) {
+            const selectedValue = selectedAnswer.value;
+            const selectedText = questions[currentQuestionIndex].answers[selectedValue];
+
+            // Armazena a pergunta e a resposta
+            answers.push({
+                pergunta: questions[currentQuestionIndex].question,
+                resposta: selectedText
+            });
+
+            // Checa se a resposta está correta
+            if (selectedValue === questions[currentQuestionIndex].correctAnswer) {
+                score++;
+            }
         }
+
         currentQuestionIndex++;
+
         if (currentQuestionIndex < questions.length) {
-            document.getElementById('question-container').innerHTML = generateQuestionHTML(questions[currentQuestionIndex]);
+            showQuestion(questions[currentQuestionIndex]);
         } else {
-            showResult();
+            submitResults();
         }
+    }
+
+    function submitResults() {
+        const name = localStorage.getItem('name');
+        const companyId = localStorage.getItem('companyId');
+
+        // Envia os dados para o backend
+        fetch('http://localhost:3000/submit-quiz', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name,
+                companyId,
+                answers,
+                score,
+                totalQuestions: questions.length
+            })
+        }).then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showResult();
+                } else {
+                    console.error('Erro ao enviar o quiz:', data.error);
+                }
+            });
     }
 
     function startTimer(seconds) {
         const timerElement = document.getElementById('timer');
+        clearInterval(timerInterval);
         timerInterval = setInterval(() => {
             if (seconds <= 0) {
                 clearInterval(timerInterval);
-                showResult();
+                submitResults(); // Envia automaticamente quando o tempo acabar
             } else {
                 seconds--;
                 const minutes = Math.floor(seconds / 60);
@@ -63,9 +110,17 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('question-container').classList.add('hidden');
         document.getElementById('result-container').classList.remove('hidden');
         document.getElementById('result-text').innerText = `Você acertou ${score} de ${questions.length} perguntas. ${score > (questions.length / 2) ? 'Parabéns!' : 'Tente novamente!'}`;
+        document.getElementById('thank-you-container').classList.remove('hidden');
     }
 
-    // Adiciona os eventos aos botões
     document.getElementById('start-btn').addEventListener('click', startQuiz);
     document.getElementById('submit-btn').addEventListener('click', submitQuiz);
+
+    // Função para voltar ao cadastro
+    document.getElementById('back-to-register-btn').addEventListener('click', () => {
+        // Remove ou oculta a tela de agradecimento e exibe a tela de cadastro
+        document.getElementById('thank-you-container').classList.add('hidden');
+        document.getElementById('start-btn').classList.remove('hidden'); // Exibe o botão de iniciar
+        // Adicione aqui a lógica para mostrar a tela de cadastro, se necessário
+    });
 });
